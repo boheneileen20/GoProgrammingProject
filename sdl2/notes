@@ -1,0 +1,37 @@
+
+
+--------------------------------
+HElps to download the sdllib2 
+--------------------------------
+
+
+
+sudo apt-get install libsdl2-dev
+   
+
+
+---------------------------
+HElps to check the version of sdl2
+---------------------------
+ dpkg -l | grep sdl
+
+
+
+------------------------------------
+Download go up and running
+------------------------------------
+sudo apt-get update
+sudo apt-get install wget
+wget https://dl.google.com/go/go1.13.4.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.13.4.linux-amd64.tar.gz
+go version
+
+
+-------------------------------------
+important go dependencies
+-------------------------------------
+sudo go get -v -u github.com/mdempsky/gocode
+sudo go get -v -u github.com/ramya-rao-a/go-outline
+sudo go get -v -u github.com/sqs/goreturns
+sudo go get -v -u github.com/mdempsky/gopkgs
+go get github.com/veandco/go-sdl2/sdl OR sudo go get github.com/veandco/go-sdl2/sdl
