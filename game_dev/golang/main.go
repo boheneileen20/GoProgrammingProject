@@ -41,21 +41,12 @@ func main() {
 
 	defer renderer.Destroy()
 
-	//image loaded
-	img, err := sdl.LoadBMP("./f.bmp")
-    if err != nil {
-		fmt.Println("Initializing image:",err)
-		return
-	}
-    defer img.Free()
-	// A texture to process the image that is loaded on the screen
+	player, err := newPlayer(renderer)
 
-	playerTexture, err := renderer.CreateTextureFromSurface(img)
 	if err != nil {
-		fmt.Println("Initializing texture:",err)
+		fmt.Println("creating player player:",err)
 		return
 	}
-	defer playerTexture.Destroy()
 
 	for{
          
@@ -76,11 +67,8 @@ func main() {
 		renderer.SetDrawColor(0,0,0,0)
 		renderer.Clear()
 		
-		//renderer copy helps to load the img which converted to texture
-		renderer.Copy(playerTexture, 
-			&sdl.Rect{X:0,Y:0, W:105, H:105},
-			&sdl.Rect{X:0,Y:0, W:70, H:50})
-
+		
+       player.draw(renderer)
 
 	//HELPS US TO SHOW THE COLOR
 	renderer.Present()
