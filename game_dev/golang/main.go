@@ -19,7 +19,7 @@ func main() {
 	}
 
 	//CREATES THE WINDOW FOR THE GAME
-	window, err := sdl.CreateWindow(
+	window,err := sdl.CreateWindow(
 		"SDL all set",
 		sdl.WINDOWPOS_UNDEFINED,sdl.WINDOWPOS_UNDEFINED,screenWidth,screenHeight,
 		sdl.WINDOW_OPENGL)
@@ -41,13 +41,50 @@ func main() {
 
 	defer renderer.Destroy()
 
+	//image loaded
+	img, err := sdl.LoadBMP("./f.bmp")
+    if err != nil {
+		fmt.Println("Initializing image:",err)
+		return
+	}
+    defer img.Free()
+	// A texture to process the image that is loaded on the screen
+
+	playerTexture, err := renderer.CreateTextureFromSurface(img)
+	if err != nil {
+		fmt.Println("Initializing texture:",err)
+		return
+	}
+	defer playerTexture.Destroy()
 
 	for{
+         
+		 //FOR THE WINDOW WE BUILD HELP US TO USE EVENTS ON THE SCREEN
+		 for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent(){
+
+			// A SWITCH STATEMENT TO USED TO ACT ON THE EVENT TYPE QUIT
+			switch event.(type){
+
+			case *sdl.QuitEvent:
+				return	
+			}
+
+		 }
+        
+
 		//CREATES A COLOR OF WHITE
-		renderer.SetDrawColor(255,255,255,255)
+		renderer.SetDrawColor(0,0,0,0)
 		renderer.Clear()
-		//HELPS US TO SHOW THE COLOR
-		renderer,Present()
+		
+		//renderer copy helps to load the img which converted to texture
+		renderer.Copy(playerTexture, 
+			&sdl.Rect{X:0,Y:0, W:105, H:105},
+			&sdl.Rect{X:0,Y:0, W:70, H:50})
+
+
+	//HELPS US TO SHOW THE COLOR
+	renderer.Present()
+		
 	}
 
 
